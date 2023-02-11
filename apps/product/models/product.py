@@ -7,6 +7,7 @@ class GoodsBrand(models.Model):
     en_name = models.CharField(max_length=64, db_index=True, help_text='英文品牌名')
     zh_name = models.CharField(max_length=64, db_index=True, help_text='中文品牌名')
     url_path = models.CharField(max_length=36, help_text='URL名称')
+    index = models.IntegerField(default=999, help_text="排序")
     create_at = models.DateTimeField(auto_now_add=True, help_text='创建日期')
     last_update = models.DateTimeField(auto_now=True, help_text='最新一次更新')
 
@@ -18,6 +19,8 @@ class GoodsBrandContext(models.Model):
     """商品品牌内容"""
     goods_brand = models.ForeignKey(GoodsBrand, on_delete=models.CASCADE, help_text='品牌')
     content = models.TextField(null=True, blank=True, help_text="内容描述")
+    create_at = models.DateTimeField(auto_now_add=True, help_text='创建日期')
+    last_update = models.DateTimeField(auto_now=True, help_text='最新一次更新')
 
     class Meta:
         db_table = 'goods_brand_context'
