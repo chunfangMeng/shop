@@ -51,6 +51,9 @@ class GoodsAttributesGroup(models.Model):
     class Meta:
         db_table = 'goods_attributes_group'
 
+    def __str__(self):
+        return f'{self.name} - {self.alias}'
+
 
 class GoodsAttributes(models.Model):
     """商品属性"""
@@ -63,6 +66,9 @@ class GoodsAttributes(models.Model):
 
     class Meta:
         db_table = 'goods_attributes'
+
+    def __str__(self):
+        return f'{self.name} - {self.alias};Group:{self.attr_group.name}'
 
 
 class GoodsClassify(models.Model):
@@ -82,6 +88,8 @@ class GoodsTag(models.Model):
     name = models.CharField(max_length=32, unique=True, help_text="标签名称")
     content = models.CharField(max_length=64, null=True, blank=True, help_text="标签描述")
     index = models.IntegerField(default=0, help_text="标签排序")
+    text_color = models.CharField(max_length=12, null=True, blank=True, help_text='文字颜色')
+    back_color = models.CharField(max_length=12, null=True, blank=True, help_text='背景颜色')
     create_at = models.DateTimeField(auto_now_add=True, help_text='创建日期')
     last_update = models.DateTimeField(auto_now=True, help_text='最新一次更新')
 
