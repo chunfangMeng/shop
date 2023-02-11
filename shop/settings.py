@@ -11,12 +11,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import sys
 import os
-import djcelery
 
 from dotenv import load_dotenv
 from pathlib import Path
 
 load_dotenv()
+
+import djcelery
+djcelery.setup_loader()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -31,6 +33,29 @@ SECRET_KEY = 'django-insecure-g@=9%kn&#tg1m$4z1xl%+ogdgdc3^4u!6ratu2u!&fkx+olw6a
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG')
+
+LANGUAGE_CODE = 'zh-Hans'
+
+TIME_ZONE = 'UTC'
+
+USE_I18N = True
+
+USE_L10N = True
+
+USE_TZ = True
+
+# Celery
+
+BROKER_URL = f'{os.environ.get("CACHES_LOCATION")}/3'
+
+CELERY_BROKER_URL = BROKER_URL
+CELERY_RESULT_BACKEND = BROKER_URL
+CELERYD_FORCE_EXECV = True
+
+# Celery beat
+CELERY_TIMEZONE = TIME_ZONE
+DJANGO_CELERY_BEAT_TZ_AWARE = False
+CELERY_BEAT_SCHEDULER = 'django-celery-beat.schedulers.DatabaseScheduler'
 
 ALLOWED_HOSTS = []
 
@@ -47,10 +72,11 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'captcha',
+    'djcelery',
     'rest_framework.authtoken',
-    'django_celery_beat',
     'apps.account',
-    'apps.webapp'
+    'apps.webapp',
+    'apps.product'
 ]
 
 MIDDLEWARE = [
@@ -137,16 +163,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
-LANGUAGE_CODE = 'zh-Hans'
-
-TIME_ZONE = 'UTC'
-
-USE_I18N = True
-
-USE_L10N = True
-
-USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -174,21 +190,4 @@ REST_FRAMEWORK = {
 }
 
 REST_TOKEN_VALID_DAY = os.environ.get('REST_TOKEN_VALID_DAY')
-
-
-# Celery
-
-djcelery.setup_loader()
-
-BROKER_URL = f'{os.environ.get("CACHES_LOCATION")}/3'
-
-CELERY_BEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
-CELERY_BROKER_URL = BROKER_URL
-CELERY_RESULT_BACKEND = BROKER_URL
-CELERYD_FORCE_EXECV = True
-
-# Celery beat
-CELERY_TIMEZONE = TIME_ZONE
-DJANGO_CELERY_BEAT_TZ_AWARE = False
-CELERY_BEAT_SCHEDULER = 'django-celery-beat.schedulers.DatabaseScheduler'
 

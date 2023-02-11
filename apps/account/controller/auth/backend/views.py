@@ -55,3 +55,13 @@ class ManagerUserView(GenericViewSet, ListModelMixin, RetrieveModelMixin):
         serializer.is_valid(raise_exception=True)
         serializer.save()
         return JsonResponse(message='创建成功', data=serializer.data)
+
+    def update(self, request, pk):
+        instance = self.get_object()
+        request.data['password'] = instance.user.password
+        print(request.data)
+        serializer = self.get_serializer(instance, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        self.perform_update(serializer)
+        return JsonResponse(message="修改成功")
+
