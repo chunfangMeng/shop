@@ -1,6 +1,6 @@
-from celery import task, shared_task
+from shop.celery import app
 
 
-@task(name='priority_tasks')
+@app.task
 def priority_test():
     return ''

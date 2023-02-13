@@ -96,6 +96,9 @@ class GoodsTag(models.Model):
     class Meta:
         db_table = 'goods_tag'
 
+    def __str__(self):
+        return f'{self.name}'
+
 
 class PriceLevelGroup(models.Model):
     """商品价格分组"""

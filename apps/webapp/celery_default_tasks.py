@@ -1,8 +1,8 @@
-from celery import task
+from shop.celery import app
 import time
 
 
-@task
+@app.task
 def test():
     print('>>>>>>>')
     time.sleep(2)
