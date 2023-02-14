@@ -1,0 +1,36 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+@layer base {
+  svg {
+      display: inline;
+      vertical-align: baseline;
+  }
+}
+
+body {
+  margin: 0;
+}
+
+.ant-layout-header {
+  padding: 0!important;
+  background: transparent!important;
+}
+
+.base-app-headers {
+  height: 64px;
+  padding: 0!important;
+  color: rgba(0, 0, 0, 0.85);
+  line-height: 64px;
+  background: none!important;
+}
+.site-layout-background {
+  padding: 24px;
+  margin: 0;
+  min-height: 280px;
+}
+.app-base-content-container {
+  background-color: white;
+  min-height: 80vh;
+}

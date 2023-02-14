@@ -3,4 +3,3 @@
 venv
 *migrations*
 celerybeat-schedule.db
-.idea
