@@ -36,6 +36,8 @@ DEBUG = os.environ.get('DEBUG')
 
 LANGUAGE_CODE = 'zh-Hans'
 
+LANGUAGE_CODE = 'zh-Hans'
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
