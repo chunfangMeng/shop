@@ -1,12 +1,14 @@
 from rest_framework.decorators import action
 from rest_framework.viewsets import GenericViewSet
 
+from apps.webapp.controller.open.upload.serializers import UploadSerializer
 from drf.response import JsonResponse
 
 
 class UpLoadView(GenericViewSet):
     authentication_classes = []
     permission_classes = []
+    serializer_class = UploadSerializer
 
     @action(methods=['get'], detail=False, url_path='section/ready')
     def section_ready(self, request):

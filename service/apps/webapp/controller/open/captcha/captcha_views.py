@@ -1,5 +1,6 @@
 import base64
 
+from apps.webapp.controller.open.captcha.serializers import CaptchaSerializer
 from drf.response import JsonResponse
 from rest_framework.viewsets import GenericViewSet
 from captcha.views import CaptchaStore, captcha_image
@@ -8,6 +9,7 @@ from captcha.views import CaptchaStore, captcha_image
 class CaptchaView(GenericViewSet):
     authentication_classes = []
     permission_classes = []
+    serializer_class = CaptchaSerializer
 
     def list(self, request):
         hash_key = CaptchaStore.generate_key()
