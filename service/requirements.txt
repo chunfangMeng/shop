@@ -16,7 +16,7 @@ eventlet==0.33.3
 greenlet==2.0.2
 kombu==4.6.11
 Pillow==9.4.0
-psycopg2==2.9.5
+psycopg2==2.8.6
 python-dotenv==0.21.1
 pytz==2022.7.1
 redis==4.5.1

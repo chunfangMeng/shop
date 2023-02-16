@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'captcha',
+    'drf_yasg',
     'djcelery',
     'rest_framework.authtoken',
     'apps.account',
