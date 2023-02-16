@@ -1,7 +1,8 @@
+import DatePicker from '@/components/datetime/DateRange';
 import UpdateGoodsTag from '@/components/product/tag/UpdateGoodsTag';
 import { ProductTagModule } from '@/interface/product/tags';
 import productTagsService from '@/service/product/tags';
-import { Button, Card, Table, TableProps, Tag } from 'antd';
+import { Button, Card, Form, Input, Table, TableProps, Tag } from 'antd';
 import React, { useState } from 'react';
 import useSWR from "swr";
 
@@ -37,7 +38,7 @@ export default function TagsList() {
       title: '操作',
       dataIndex: 'action',
       render: (text, record) => (
-        <Button type="primary" onClick={() => onShowUpdate(record)}>编辑</Button>
+        <Button ghost type="primary" onClick={() => onShowUpdate(record)}>编辑</Button>
       )
     }],
     rowKey: 'name',
@@ -45,13 +46,33 @@ export default function TagsList() {
     loading: tagsList.isLoading
   }
   return (
-    <Card>
-      <Table {...tagTableProps}/>
-      <UpdateGoodsTag 
-        editTag={editTag}
-        open={updateTagVisible}
-        onClose={() => setUpdateTagVisible(false)}
-        onFinish={onUpdateFinish}/>
-    </Card>
+    <>
+      <Card className='mb-4'>
+        <div className="flex justify-between">
+          <Form
+            className='m-0!'
+            layout="inline">
+            <Form.Item>
+              <Input placeholder="输入关键字搜索"/>
+            </Form.Item>
+            <Form.Item>
+              <Button ghost htmlType="submit" type="primary">筛选</Button>
+            </Form.Item>
+            <Form.Item>
+              <Button>重置</Button>
+            </Form.Item>
+          </Form>
+          <Button type="primary" onClick={() => onShowUpdate()}>创建</Button>
+        </div>
+      </Card>
+      <Card>
+        <Table {...tagTableProps}/>
+        <UpdateGoodsTag 
+          editTag={editTag}
+          open={updateTagVisible}
+          onClose={() => setUpdateTagVisible(false)}
+          onFinish={onUpdateFinish}/>
+      </Card>
+    </>
   )
 }

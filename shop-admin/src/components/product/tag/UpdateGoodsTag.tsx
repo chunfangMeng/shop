@@ -25,6 +25,16 @@ export default function UpdateGoodsTag(props: UpdateGoodsTagProps) {
       }
     }
   })
+  const createTag = useSWRMutation('/create/tag/', (key, options) => {
+    return productTagsService.createGoodsTag(options.arg)
+  }, {
+    onSuccess: res => {
+      if (res.code === 200) {
+        message.success(res.message)
+        props.onFinish()
+      }
+    }
+  })
   const onValuesChange = (changedValues: ProductTagModule.TagInfo, values: ProductTagModule.TagInfo) => {
     if (Object.keys(changedValues).includes('text_color')) {
       setPreviewTextColor(changedValues['text_color'])
@@ -34,13 +44,22 @@ export default function UpdateGoodsTag(props: UpdateGoodsTagProps) {
     }
   }
   const onTagFinish = (values: ProductTagModule.TagInfo) => {
-    updateTag.trigger(values)
+    if (props.editTag) {
+      updateTag.trigger(values)
+      return false
+    }
+    createTag.trigger(values)
   }
   useEffect(() => {
     if (props.open && props.editTag) {
       setPreviewTextColor(props.editTag.text_color)
       setPreviewBgColor(props.editTag.back_color)
     }
+    if (props.open && !props.editTag) {
+      setPreviewTextColor(undefined)
+      setPreviewBgColor(undefined)
+    }
+    tagForm.resetFields()
   }, [props.open])
   return (
     <Drawer

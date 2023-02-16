@@ -5,6 +5,7 @@ import { ProductTagModule } from "@/interface/product/tags";
 class ProductTagService extends ApiHttp {
   getProductTags = () => this.get<PageResponse<ProductTagModule.TagInfo>>('/api/v1/product/goods/tags/')
   UpdateGoodsTag = (values: ProductTagModule.TagInfo) => this.put(`/api/v1/product/goods/tags/${values.id}/`, values)
+  createGoodsTag = (values: ProductTagModule.TagInfo) => this.post('/api/v1/product/goods/tags/', values)
 }
 
 const productTagsService = new ProductTagService()
