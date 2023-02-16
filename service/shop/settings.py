@@ -44,6 +44,11 @@ USE_L10N = True
 
 USE_TZ = True
 
+# Redis
+REDIS_HOST = os.environ.get('REDIS_HOST', '127.0.0.1')
+REDIS_PORT = int(os.environ.get('REDIS_PORT'))
+REDIS_DB = int(os.environ.get('REDIS_DB'))
+
 # Celery
 
 BROKER_URL = f'{os.environ.get("CACHES_LOCATION")}/3'
