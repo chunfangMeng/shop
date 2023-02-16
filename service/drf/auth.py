@@ -15,10 +15,10 @@ class ManageAuthenticate(authentication.SessionAuthentication):
     @classmethod
     def verify_token(cls, token_obj):
         utc_now = datetime.utcnow()
-        valid_date = (utc_now - timedelta(hours=24 * int(settings.REST_TOKEN_VALID_DAY))).replace(
+        valid_date = (utc_now + timedelta(hours=24 * int(settings.REST_TOKEN_VALID_DAY))).replace(
             tzinfo=pytz.timezone('UTC')
         )
-        if token_obj.created < valid_date:
+        if token_obj.created > valid_date:
             raise exceptions.AuthenticationFailed('请重新登陆')
 
     @classmethod
