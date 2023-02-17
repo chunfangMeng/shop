@@ -1,3 +1,6 @@
+from django_filters import rest_framework as filters
+
+from apps.product.controller.tags.filters import GoodsTagFilter
 from apps.product.controller.tags.serializers import GoodsTagsSerializer
 from apps.product.models.product import GoodsTag
 from drf.mixins import CreateModelMixin, DestroyModelMixin, ListModelMixin, RetrieveModelMixin, UpdateModelMixin
@@ -10,3 +13,6 @@ class GoodsTagsView(GenericViewSet, CreateModelMixin, DestroyModelMixin, ListMod
     permission_classes = ()
     serializer_class = GoodsTagsSerializer
     queryset = GoodsTag.objects.order_by('-id')
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = GoodsTagFilter
+
