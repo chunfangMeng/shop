@@ -1,3 +1,5 @@
+
+
 export namespace ProductTagModule {
   export type TagInfo = {
     id?: number;
@@ -9,5 +11,9 @@ export namespace ProductTagModule {
     last_update: string;
     name: string;
     text_color: string;
+  }
+
+  export type TagFilter = {
+    createRange?: []
   }
 }

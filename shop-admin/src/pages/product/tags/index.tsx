@@ -10,6 +10,7 @@ import useSWR from "swr";
 export default function TagsList() {
   const tagsList = useSWR('tagList', productTagsService.getProductTags)
   const [ editTag, setEditTag ] = useState<ProductTagModule.TagInfo>()
+  const [ filterForm ] = Form.useForm()
   const [ updateTagVisible, setUpdateTagVisible ] = useState(false)
   const onShowUpdate = (record?: ProductTagModule.TagInfo) => {
     setEditTag(record);
@@ -17,6 +18,9 @@ export default function TagsList() {
   }
   const onUpdateFinish = () => {
     setUpdateTagVisible(false)
+  }
+  const onFilterSubmit = (values: any) => {
+    console.log(values)
   }
   const tagTableProps: TableProps<ProductTagModule.TagInfo> = {
     columns: [{
@@ -50,9 +54,16 @@ export default function TagsList() {
       <Card className='mb-4'>
         <div className="flex justify-between">
           <Form
+            form={filterForm}
             className='m-0!'
-            layout="inline">
-            <Form.Item>
+            layout="inline"
+            onFinish={onFilterSubmit}>
+            <Form.Item
+              name="createRange">
+              <DatePicker.RangePicker />
+            </Form.Item>
+            <Form.Item
+              name="keyword">
               <Input placeholder="输入关键字搜索"/>
             </Form.Item>
             <Form.Item>
