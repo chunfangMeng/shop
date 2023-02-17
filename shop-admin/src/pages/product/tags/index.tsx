@@ -8,8 +8,9 @@ import useSWR from "swr";
 
 
 export default function TagsList() {
-  const tagsList = useSWR('tagList', productTagsService.getProductTags)
+  const tagsList = useSWR('tagList', () => productTagsService.getProductTags(filterParams))
   const [ editTag, setEditTag ] = useState<ProductTagModule.TagInfo>()
+  const [ filterParams, setFilterParams ] = useState<ProductTagModule.TagFilter>()
   const [ filterForm ] = Form.useForm()
   const [ updateTagVisible, setUpdateTagVisible ] = useState(false)
   const onShowUpdate = (record?: ProductTagModule.TagInfo) => {
@@ -18,9 +19,15 @@ export default function TagsList() {
   }
   const onUpdateFinish = () => {
     setUpdateTagVisible(false)
+    tagsList.mutate()
   }
-  const onFilterSubmit = (values: any) => {
-    console.log(values)
+  const onFilterSubmit = (values: ProductTagModule.TagFilter) => {
+    if (Array.isArray(values.createRange)) {
+      values.start_date = values.createRange[0].format('YYYY-MM-DD')
+      values.end_date = values.createRange[1].format('YYYY-MM-DD')
+      values.createRange = undefined
+    }
+    setFilterParams(values)
   }
   const tagTableProps: TableProps<ProductTagModule.TagInfo> = {
     columns: [{

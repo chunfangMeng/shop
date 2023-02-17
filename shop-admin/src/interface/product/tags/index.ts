@@ -1,4 +1,4 @@
-
+import { Dayjs } from 'dayjs';
 
 export namespace ProductTagModule {
   export type TagInfo = {
@@ -14,6 +14,9 @@ export namespace ProductTagModule {
   }
 
   export type TagFilter = {
-    createRange?: []
+    createRange?: [Dayjs, Dayjs];
+    start_date?: string;
+    end_date?: string;
+    keyword?: string;
   }
 }
